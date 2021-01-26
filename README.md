@@ -1,4 +1,4 @@
-# VI Terrain Generation
+# Terrain Generation
 
 Group assignment of Visualization & Illumination (Visualização e Iluminação) 2019/2020
 
