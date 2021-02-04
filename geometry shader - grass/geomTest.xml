@@ -3,14 +3,16 @@
 	<assets>
 		<attributes>
 			<attribute type="RENDERER" name="scale" data="FLOAT" value=0.00/>
+			<attribute type="RENDERER" name="normais" data="FLOAT" value=0.00/>
 		</attributes>
 		<scenes>
 			<scene name="MainScene" param="UNITIZE ">
 				<file name="models/teapot.obj"/>
+				
 			</scene>
 			<scene name="Plane" >
-				<SCALE x=2 y=20 z=2 />
-				<file name="models/plane.obj"/>
+				<geometry name = "Grid" type = "GRID" LENGTH=200  DIVISIONS=100>
+        		</geometry>
 			</scene>
 			<scene name="grassField" >
 				<buffers name="grassField" primitive="POINTS" material="grassField" >
@@ -74,7 +76,10 @@
 	<interface>
 		<window label="settings" >
 			<var label="scale" type="RENDERER" context="CURRENT" 
-					component="scale" def="min=0 max=1 step=0.001" />
+					component="scale" def="min=0.8 max=3 step=0.01" />
+
+			<var label="normais" type="RENDERER" context="CURRENT" 
+					component="normais" def="min=0 max=1 step=1" />
 			
 		</window>
 	</interface>
