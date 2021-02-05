@@ -3,7 +3,7 @@
 uniform mat4 m_pvm, m_viewModel, m_view;
 uniform mat3 m_normal;
 uniform vec4 l_dir;    //world
-uniform float scale;
+uniform float maxAltitude;
 uniform vec4 cam;    
 uniform sampler2D noise;
 
@@ -18,8 +18,8 @@ out vec2 tc;
 void main () {
 
 
-    vec4 p =position;
-    p.y=texture(noise,texCoord0).x *scale;
+    vec4 p = position;
+    p.y=texture(noise,texCoord0).x * maxAltitude;
 
     eye = vec3(-(m_viewModel * position)); 
 	tc = texCoord0;

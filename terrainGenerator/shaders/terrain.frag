@@ -1,10 +1,11 @@
 #version 420
 
 uniform	vec4 diffuse = vec4(1.0);
-uniform sampler2D base, noise, normals;
-uniform float scale, shininess = 128;
+uniform sampler2D noise, baseTex, baseNorm, highTex, highNorm;
+uniform float shininess = 128;
 uniform int terrainNorm; 
 uniform mat3 m_normal;
+uniform mat4 m_pvm, m_viewModel, m_view;
 
 in vec3 n, lDir, eye;
 in vec2 tc;
@@ -14,19 +15,31 @@ out vec4 colorOut;
 
 void main() {
 
-    vec2 texc= tc*10;
     // normalize vectors
 	vec3 normal = normalize(n);
-    if(terrainNorm==1){
-        normal = normal + m_normal * normalize(vec3(texture(normals,texc)));
-    }
 	vec3 eye = normalize(eye);
 	vec3 l_dir = normalize(lDir);
+	vec2 texc= tc*10;
+
+	vec4 cBase = texture(baseTex,texc);
+	vec4 cHigh = texture(highTex,texc);
+	float f = smoothstep(0.7, 1.0, 9 - (inverse(m_viewModel) * -pos).y);
+	vec4 texColor = mix(cHigh,cBase,f);
+
+	// get texture normals
+	if(terrainNorm==1){
+        //normal = normal + m_normal * normalize(vec3(texture(baseNorm,texc)));
+
+       	vec4 nBase = texture(baseNorm,texc);
+		vec4 nHigh = texture(highNorm,texc);
+        vec4 texNorm = mix(nHigh,nBase,f);
+		normal = normal + m_normal * normalize(vec3(texNorm));
+       
+    }
 		
 	// get texture data
-	vec4 texColor = texture(base, texc);
+	//vec4 texColor = texture(baseTex, texc);
 	float intensity = max(dot(normal,normalize(l_dir)), 0.0);
-	//float intensity = max(dot(normalize(vec3(m_view * -l_dir)) , vec3(normalize(m_normal * vec3(normal)))), 0.0);
 
 
     /*
@@ -56,8 +69,9 @@ void main() {
 	}
     */
 	//colorOut = max(intensity * color + spec +  color * 0.5,0);
+
     texColor=intensity*texColor;
-    colorOut = max(texColor ,texColor*0.3);
+    colorOut = texColor;
 
 
 }
