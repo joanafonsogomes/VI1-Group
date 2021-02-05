@@ -3,20 +3,16 @@
 	<assets>
 		<attributes>
 			<attribute type="RENDERER" name="scale" data="FLOAT" value=0.00/>
-			<attribute type="RENDERER" name="normais" data="FLOAT" value=0.00/>
+			<attribute type="RENDERER" name="terrainNorm" data="INT" value=0/>
 		</attributes>
 		<scenes>
-			<scene name="MainScene" param="UNITIZE ">
-				<file name="models/teapot.obj"/>
-				
-			</scene>
 			<scene name="Plane" >
 				<geometry name = "Grid" type = "GRID" LENGTH=200  DIVISIONS=100>
         		</geometry>
 			</scene>
-			<scene name="grassField" >
-				<buffers name="grassField" primitive="POINTS" material="grassField" >
-					<position name="point" fromLibrary="geom test" />
+			<scene name="terrains" >
+				<buffers name="terrains" primitive="POINTS" material="terrains" >
+					<position name="point" fromLibrary="terrainLib" />
 				</buffers>
 			</scene>
 		</scenes>
@@ -30,7 +26,7 @@
 		<cameras>
 			<camera name="MainCamera">
 				<viewport name="MainViewport" />
-				<POSITION x=0 y=1 z=7.5 />
+				<POSITION x=0 y=3 z=7.5 />
 				<VIEW x=0.0 y=0.0 z=-1.0 />
 				<UP x=0 y=1 z=0 />
 				<NEAR value=0.1 />
@@ -45,7 +41,7 @@
 		</lights>
 		
 		<materialLibs>
-			<materialLib filename="geomTest.mlib"/>
+			<materialLib filename="terrain.mlib"/>
 		</materialLibs>
 		
 	</assets>
@@ -55,7 +51,7 @@
 	
 		<pipeline name="p1" >
 		
-			<pass class="default" name="grassField">
+			<pass class="default" name="terrains">
 				<scenes>
 					<scene name="Plane" />
 				</scenes>
@@ -65,7 +61,7 @@
 					<light name="Sun" />
 				</lights>
 				<materialMaps>
-                    <map fromMaterial="*" toMaterial="grassField" toLibrary="geom test" />
+                    <map fromMaterial="*" toMaterial="terrainMat" toLibrary="terrainLib" />
                 </materialMaps>
 			</pass>
 					
@@ -78,8 +74,8 @@
 			<var label="scale" type="RENDERER" context="CURRENT" 
 					component="scale" def="min=0.8 max=3 step=0.01" />
 
-			<var label="normais" type="RENDERER" context="CURRENT" 
-					component="normais" def="min=0 max=1 step=1" />
+			<var label="terrainNorm" type="RENDERER" context="CURRENT" 
+					component="terrainNorm" def="min=0 max=1 step=1" />
 			
 		</window>
 	</interface>

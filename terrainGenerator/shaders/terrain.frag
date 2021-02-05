@@ -2,34 +2,31 @@
 
 uniform	vec4 diffuse = vec4(1.0);
 uniform sampler2D base, noise, normals;
-uniform float shininess = 128;
-uniform float scale, normais; 
+uniform float scale, shininess = 128;
+uniform int terrainNorm; 
 uniform mat3 m_normal;
 
 in vec3 n, lDir, eye;
 in vec2 tc;
 in vec4 pos;
 
-
 out vec4 colorOut;
 
 void main() {
 
-
-
-
     vec2 texc= tc*10;
     // normalize vectors
 	vec3 normal = normalize(n);
-    if(normais==1){
-        normal = normalize(m_normal * vec3(texture(normals,texc)) * 2.0 - 1.0);
+    if(terrainNorm==1){
+        normal = normal + m_normal * normalize(vec3(texture(normals,texc)));
     }
 	vec3 eye = normalize(eye);
 	vec3 l_dir = normalize(lDir);
 		
 	// get texture data
 	vec4 texColor = texture(base, texc);
-	float intensity = max(dot(normal,l_dir), 0.0);
+	float intensity = max(dot(normal,normalize(l_dir)), 0.0);
+	//float intensity = max(dot(normalize(vec3(m_view * -l_dir)) , vec3(normalize(m_normal * vec3(normal)))), 0.0);
 
 
     /*

@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<materialLib name="geom test">
+<materialLib name="terrainLib">
 
 	<textures>
 		<texture name="noise" filename="textures/fractalNoise.jpg" />
@@ -7,8 +7,8 @@
 		<texture name="normals" filename="textures/terrain/grass01_n.jpg"  />
 	</textures>
 	<shaders>
-		<shader name="grassField" 		ps="shaders/pixeldirdifambspec.frag" 
-										vs="shaders/pixeldirdifambspec.vert"
+		<shader name="terrainShaders"	ps="shaders/terrain.frag" 
+										vs="shaders/terrain.vert"
 										/>
 	</shaders>
 
@@ -20,13 +20,9 @@
 	
 	<materials>
 	
-		<material name="grassField" >
-			<shader name="grassField" >
+		<material name="terrainMat" >
+			<shader name="terrainShaders" >
 				<values>
-
-					<valueof uniform="m_viewModel" 
-							 type="RENDERER" context="CURRENT" 
-							 component="VIEW_MODEL" />
 							 
 					<valueof uniform="timer" 	type="RENDERER" context="CURRENT" 
 												component="TIMER"  />	
@@ -39,22 +35,34 @@
 												
 					<valueof uniform="m_view" 	type="RENDERER" context="CURRENT" 
 												component="VIEW"  />	
+
+					<valueof uniform="m_viewModel"  type="RENDERER" context="CURRENT" 
+							 					component="VIEW_MODEL" />
 												
 					<valueof uniform="l_dir"	type="LIGHT" context="CURRENT"
 												component="DIRECTION" id=0/>
-					<valueof uniform="scale"
-											 	type="RENDERER" context="CURRENT" 
-							 					component="scale" />
-					<valueof uniform="normais"
-							 					type="RENDERER" context="CURRENT" 
-							 					component="normais" />
-					<valueof uniform="cam"
-												type="CAMERA" context="CURRENT"
+
+					<valueof uniform="diffuse"  type="COLOR" context="CURRENT" 
+							 					component="DIFFUSE" />
+							 
+					<valueof uniform="ambient" 	type="COLOR" context="CURRENT" 
+							 					component="AMBIENT" />
+
+					<valueof uniform="cam"		type="CAMERA" context="CURRENT"
 												component="POSITION" />
+
+					<valueof uniform="scale"	type="RENDERER" context="CURRENT" 
+							 					component="scale" />
+
+					<valueof uniform="terrainNorm"	type="RENDERER" context="CURRENT" 
+							 					component="terrainNorm" />
+
 					<valueof uniform="noise" 	type="TEXTURE_BINDING" context="CURRENT"
 												component="UNIT" id=0 />
+
 					<valueof uniform="base" 	type="TEXTURE_BINDING" context="CURRENT"
 												component="UNIT" id=1 />
+
 					<valueof uniform="normals" 	type="TEXTURE_BINDING" context="CURRENT"
 												component="UNIT" id=2 />							
 							
