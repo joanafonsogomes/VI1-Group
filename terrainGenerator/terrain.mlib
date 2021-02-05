@@ -3,10 +3,10 @@
 
 	<textures>
 		<texture name="noise" filename="textures/fractalNoise.jpg" />
-		<texture name="baseTex" filename="textures/terrain/grass01.jpg" mipmap=true />
-		<texture name="baseNorm" filename="textures/terrain/grass01_n.jpg"  />
-		<texture name="highTex" filename="textures/base.jpg" mipmap=true />
-		<texture name="highNorm" filename="textures/grass_01_normal.jpg" />
+		<texture name="baseTex" filename="textures/base/grass01.jpg" mipmap=true />
+		<texture name="baseNorm" filename="textures/base/grass01_n.jpg"  />
+		<texture name="highTex" filename="textures/high/high.jpg" mipmap=true />
+		<texture name="highNorm" filename="textures/high/highNormals.jpg" />
 	</textures>
 	<shaders>
 		<shader name="terrainShaders"	ps="shaders/terrain.frag" 
