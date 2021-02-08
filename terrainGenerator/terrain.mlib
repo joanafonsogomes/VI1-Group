@@ -5,8 +5,9 @@
 		<texture name="noise" filename="textures/fractalNoise.jpg" />
 		<texture name="baseTex" filename="textures/base/grass01.jpg" mipmap=true />
 		<texture name="baseNorm" filename="textures/base/grass01_n.jpg"  />
-		<texture name="highTex" filename="textures/high/snow.jpg" mipmap=true />
+		<texture name="highTex" filename="textures/high/snow2.jpg" mipmap=true />
 		<texture name="highNorm" filename="textures/high/highNormals.jpg" />
+		<texture name="lowTex" filename="textures/low/low2.jpg" mipmap=true />
 	</textures>
 	<shaders>
 		<shader name="terrainShaders"	ps="shaders/terrain.frag" 
@@ -25,9 +26,6 @@
 		<material name="terrainMat" >
 			<shader name="terrainShaders" >
 				<values>
-							 
-					<valueof uniform="timer" 	type="RENDERER" context="CURRENT" 
-												component="TIMER"  />	
 												
 					<valueof uniform="m_pvm" 	type="RENDERER" context="CURRENT" 
 												component="PROJECTION_VIEW_MODEL"  />	
@@ -47,11 +45,23 @@
 					<valueof uniform="cam"		type="CAMERA" context="CURRENT"
 												component="POSITION" />
 
-					<valueof uniform="maxAltitude"	type="RENDERER" context="CURRENT" 
-							 					component="maxAltitude" />
+					<valueof uniform="maxHeight"	type="RENDERER" context="CURRENT" 
+							 					component="maxHeight" />
 
 					<valueof uniform="terrainNorm"	type="RENDERER" context="CURRENT" 
 							 					component="terrainNorm" />
+
+					<valueof uniform="highHeight"	type="RENDERER" context="CURRENT" 
+							 					component="highHeight" />
+
+					<valueof uniform="lowHeight"	type="RENDERER" context="CURRENT" 
+							 					component="lowHeight" />
+
+					<valueof uniform="nTextures"	type="RENDERER" context="CURRENT" 
+							 					component="nTextures" />
+
+					<valueof uniform="gamma"	type="RENDERER" context="CURRENT" 
+							 					component="gamma" />
 
 					<valueof uniform="noise" 	type="TEXTURE_BINDING" context="CURRENT"
 												component="UNIT" id=0 />
@@ -68,6 +78,8 @@
 					<valueof uniform="highNorm" 	type="TEXTURE_BINDING" context="CURRENT"
 												component="UNIT" id=4 />
 					
+					<valueof uniform="lowTex" 	type="TEXTURE_BINDING" context="CURRENT"
+												component="UNIT" id=5 />
 							
 				</values>
 			</shader>
@@ -77,7 +89,7 @@
 				<texture name="baseNorm"  UNIT="2" />
 				<texture name="highTex"  UNIT="3" />
 				<texture name="highNorm"  UNIT="4" />
-
+				<texture name="lowTex" UNIT="5" />
 			</textures>
 		</material>
 	

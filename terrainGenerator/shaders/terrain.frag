@@ -1,11 +1,10 @@
 #version 420
 
-uniform	vec4 diffuse = vec4(1.0);
-uniform sampler2D noise, baseTex, baseNorm, highTex, highNorm;
-uniform float shininess = 128;
-uniform int terrainNorm; 
 uniform mat3 m_normal;
 uniform mat4 m_pvm, m_viewModel, m_view;
+uniform sampler2D noise, baseTex, baseNorm, highTex, highNorm, lowTex;
+uniform float shininess = 128, highHeight, lowHeight, gamma, nTextures;
+uniform int terrainNorm; 
 
 in vec3 n, lDir, eye;
 in vec2 tc;
@@ -13,8 +12,9 @@ in vec4 pos;
 
 out vec4 colorOut;
 
-float rand(vec2 co){
-    return texture(noise,co).x;
+
+float rand(vec2 v){
+    return texture(noise,v).x;
 }
 
 void main() {
@@ -23,27 +23,31 @@ void main() {
 	vec3 normal = normalize(n);
 	vec3 eye = normalize(eye);
 	vec3 l_dir = normalize(lDir);
-	vec2 texc= tc*100;
+	vec2 texc= tc * nTextures;
 	
 	vec4 cBase = texture(baseTex,texc);
 	vec4 cHigh = texture(highTex,texc);
-	float f = smoothstep(0.7, 1.0, 9+rand(texc) - (inverse(m_viewModel) * -pos).y);
+	float f = smoothstep(0.7, 1.0, highHeight + rand(texc) - (inverse(m_viewModel) * -pos).y);
 	vec4 texColor = mix(cHigh,cBase,f);
+
+	if(f > 0.9)
+	{
+		vec4 cLow = texture(lowTex,texc);
+		f = smoothstep(0.7, 1.0, lowHeight + rand(texc) - (inverse(m_viewModel) * -pos).y);
+		texColor = mix(cBase, cLow, f);
+	}
 
 	// get texture normals
 	if(terrainNorm==1){
-        //normal = normal + m_normal * normalize(vec3(texture(baseNorm,texc)));
-
        	vec4 nBase = texture(baseNorm,texc);
 		vec4 nHigh = texture(highNorm,texc);
         vec4 texNorm = mix(nHigh,nBase,f);
-		normal = normal + m_normal * normalize(vec3(texNorm));
-       
+		normal = normal + normalize(m_normal * (normalize(vec3(texNorm))));
     }
 		
 	// get texture data
 	//vec4 texColor = texture(baseTex, texc);
-	float intensity = max(dot(normal,(l_dir)), 0.0);
+	float intensity = max(dot(normal,l_dir), 0.0) * gamma;
 
 
     /*
@@ -58,9 +62,6 @@ void main() {
 	// set the specular term to black
 	vec4 spec = vec4(0.0);
 
-
-	
-
 	// if the vertex is lit and there is little or no rust
 	// compute the specular color
 	if (intensity > 0.0 && f < rusting+0.05) {
@@ -74,7 +75,7 @@ void main() {
     */
 	//colorOut = max(intensity * color + spec +  color * 0.5,0);
 
-    texColor=intensity*texColor;
+    texColor = intensity * texColor;
     colorOut = texColor;
 
 
