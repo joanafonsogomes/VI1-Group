@@ -7,7 +7,7 @@
 		</attributes>
 		<scenes>
 			<scene name="Plane" >
-				<geometry name = "Grid" type = "GRID" LENGTH=200  DIVISIONS=100>
+				<geometry name = "Grid" type = "GRID" LENGTH=200  DIVISIONS=200>
         		</geometry>
 			</scene>
 			<scene name="terrains" >
@@ -72,7 +72,7 @@
 	<interface>
 		<window label="settings" >
 			<var label="maxAltitude" type="RENDERER" context="CURRENT" 
-					component="maxAltitude" def="min=0.8 max=10 step=0.01" />
+					component="maxAltitude" def="min=0.8 max=100 step=0.01" />
 
 			<var label="terrainNorm" type="RENDERER" context="CURRENT" 
 					component="terrainNorm" def="min=0 max=1 step=1" />

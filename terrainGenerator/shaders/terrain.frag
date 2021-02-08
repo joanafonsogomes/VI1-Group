@@ -13,17 +13,21 @@ in vec4 pos;
 
 out vec4 colorOut;
 
+float rand(vec2 co){
+    return texture(noise,co).x;
+}
+
 void main() {
 
     // normalize vectors
 	vec3 normal = normalize(n);
 	vec3 eye = normalize(eye);
 	vec3 l_dir = normalize(lDir);
-	vec2 texc= tc*10;
-
+	vec2 texc= tc*100;
+	
 	vec4 cBase = texture(baseTex,texc);
 	vec4 cHigh = texture(highTex,texc);
-	float f = smoothstep(0.7, 1.0, 9 - (inverse(m_viewModel) * -pos).y);
+	float f = smoothstep(0.7, 1.0, 9+rand(texc) - (inverse(m_viewModel) * -pos).y);
 	vec4 texColor = mix(cHigh,cBase,f);
 
 	// get texture normals
@@ -39,7 +43,7 @@ void main() {
 		
 	// get texture data
 	//vec4 texColor = texture(baseTex, texc);
-	float intensity = max(dot(normal,normalize(l_dir)), 0.0);
+	float intensity = max(dot(normal,(l_dir)), 0.0);
 
 
     /*

@@ -5,7 +5,7 @@
 		<texture name="noise" filename="textures/fractalNoise.jpg" />
 		<texture name="baseTex" filename="textures/base/grass01.jpg" mipmap=true />
 		<texture name="baseNorm" filename="textures/base/grass01_n.jpg"  />
-		<texture name="highTex" filename="textures/high/high.jpg" mipmap=true />
+		<texture name="highTex" filename="textures/high/snow.jpg" mipmap=true />
 		<texture name="highNorm" filename="textures/high/highNormals.jpg" />
 	</textures>
 	<shaders>

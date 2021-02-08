@@ -15,15 +15,30 @@ out vec4 pos;
 out vec3 n, eye, lDir; //camera
 out vec2 tc;
 
+
+float h(vec2 coord){
+    return texture(noise,coord).x*maxAltitude;
+}
+float h(float x, float y){
+    
+    return texture(noise,vec2(x/200,y/200)).x*maxAltitude;
+}
+
 void main () {
 
 
     vec4 p = position;
-    p.y=texture(noise,texCoord0).x * maxAltitude;
+    p.y=h(p.x,p.z);
+    float d =1/200;
+    vec3 derX=  vec3(p.x+1,h(p.x+1,p.z),p.z)
+                -vec3(p.x-1,h(p.x-1,p.z), p.z);
 
+    vec3 derY=  vec3(p.x,h(p.x,p.z+1), p.z+1)
+                -vec3(p.x,h(p.x,p.z-1), p.z-1);
+    n= normalize(m_normal*normalize(cross(normalize(derY),normalize(derX))));
+   
     eye = vec3(-(m_viewModel * position)); 
 	tc = texCoord0;
-    n = normalize(m_normal * normal);
     pos = -(m_viewModel * p);
     lDir = normalize(vec3(m_view * -normalize(l_dir)));
 
