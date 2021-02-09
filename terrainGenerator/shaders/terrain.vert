@@ -32,7 +32,7 @@ void main () {
    
     eye = vec3(-(m_viewModel * position)); 
 	tc = texCoord0;
-    pos = -(m_viewModel * p);
+    pos = p;
     lDir = normalize(vec3(m_view * -normalize(l_dir)));
 
 
