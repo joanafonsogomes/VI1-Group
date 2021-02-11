@@ -91,6 +91,16 @@
 
 					<valueof uniform="noiseScale"	type="RENDERER" context="CURRENT" 
 							 					component="noiseScale" />
+
+					<valueof uniform="lacunarity"	type="RENDERER" context="CURRENT" 
+							 					component="lacunarity" />
+
+					<valueof uniform="octaves"	type="RENDERER" context="CURRENT" 
+							 					component="octaves" />
+
+					<valueof uniform="H"	type="RENDERER" context="CURRENT" 
+							 					component="H" />
+
 					<valueof uniform="noise" 	type="TEXTURE_BINDING" context="CURRENT"
 												component="UNIT" id=0 />
 
