@@ -9,6 +9,7 @@
 		<texture name="highNorm" filename="textures/high/highNorm.jpg" />
 		<texture name="lowTex" filename="textures/low/snow.tif" mipmap=true />
 		<texture name="lowNorm" filename="textures/low/snowNorm.jpg" />
+		<texture name="waterTex" filename="textures/water/water.jpg" mipmap=true />
 	</textures>
 	<shaders>
 		<shader name="terrainShaders"	ps="shaders/terrain.frag" 
@@ -75,6 +76,17 @@
 					<valueof uniform="gamma"	type="RENDERER" context="CURRENT" 
 							 					component="gamma" />
 
+					<valueof uniform="noiseVersion"	type="RENDERER" context="CURRENT" 
+							 					component="noiseVersion" />
+
+					<valueof uniform="noiseVariance"	type="RENDERER" context="CURRENT" 
+							 					component="noiseVariance" />
+
+					<valueof uniform="waterHeight"	type="RENDERER" context="CURRENT" 
+							 					component="waterHeight" />
+
+					<valueof uniform="noiseScale"	type="RENDERER" context="CURRENT" 
+							 					component="noiseScale" />
 					<valueof uniform="noise" 	type="TEXTURE_BINDING" context="CURRENT"
 												component="UNIT" id=0 />
 
@@ -95,6 +107,9 @@
 
 					<valueof uniform="lowNorm" 	type="TEXTURE_BINDING" context="CURRENT"
 												component="UNIT" id=6 />
+
+					<valueof uniform="waterTex" 	type="TEXTURE_BINDING" context="CURRENT"
+												component="UNIT" id=7 />							
 							
 				</values>
 			</shader>
@@ -106,6 +121,7 @@
 				<texture name="highNorm"  UNIT="4" />
 				<texture name="lowTex" UNIT="5" />
 				<texture name="lowNorm" UNIT="6" />
+				<texture name="waterTex" UNIT="7" />
 			</textures>
 		</material>
 	

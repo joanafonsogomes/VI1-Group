@@ -10,7 +10,12 @@
 			<attribute type="RENDERER" name="terrainNorm" data="INT" value=1/>
 			<attribute type="RENDERER" name="lowNormalMult" data="FLOAT" value=0.8/>
 			<attribute type="RENDERER" name="baseNormalMult" data="FLOAT" value=0.2/>
-			<attribute type="RENDERER" name="highNormalMult" data="FLOAT" value=0.3/>			
+			<attribute type="RENDERER" name="highNormalMult" data="FLOAT" value=0.3/>
+			<attribute type="RENDERER" name="noiseVersion" data="INT" value=1/>
+			<attribute type="RENDERER" name="noiseVariance" data="FLOAT" value=10/>
+			<attribute type="RENDERER" name="noiseScale" data="FLOAT" value=70/>	
+			<attribute type="RENDERER" name="waterHeight" data="FLOAT" value=0/>
+
 		</attributes>
 		<scenes>
 			<scene name="Plane" >
@@ -83,6 +88,17 @@
 			<var label="nTextures" type="RENDERER" context="CURRENT" 
 					component="nTextures" def="min=1 max=500 step=10" />
 
+			<var label="noiseVersion" type="RENDERER" context="CURRENT" 
+					component="noiseVersion" def="min=0 max=2 step=1" />
+
+			<var label="noiseVariance" type="RENDERER" context="CURRENT" 
+					component="noiseVariance" def="min=0 max=100 step=1" />
+
+			<var label="noiseScale" type="RENDERER" context="CURRENT" 
+					component="noiseScale" def="min=1 max=100 step=0.1" />
+
+		</window>
+		<window label="Normals" >
 			<var label="terrainNorm" type="RENDERER" context="CURRENT" 
 					component="terrainNorm" def="min=0 max=1 step=1" />
 
@@ -94,6 +110,7 @@
 
 			<var label="highNormalMult" type="RENDERER" context="CURRENT" 
 					component="highNormalMult" def="min=0 max=2 step=0.05" />
+
 		</window>
 
 		<window label="Height" >
@@ -105,6 +122,9 @@
 
 			<var label="lowHeight" type="RENDERER" context="CURRENT" 
 					component="lowHeight" def="min=0.0 max=100 step=0.1" />
+
+			<var label="waterHeight" type="RENDERER" context="CURRENT" 
+					component="waterHeight" def="min=-10.0 max=10 step=0.1" />
 		</window>
 	</interface>
 </project>
