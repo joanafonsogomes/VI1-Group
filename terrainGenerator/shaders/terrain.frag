@@ -2,8 +2,8 @@
 
 uniform mat3 m_normal;
 uniform mat4 m_pvm, m_viewModel, m_view;
-uniform sampler2D noise, baseTex, baseNorm, highTex, highNorm, lowTex, lowNorm, waterTex;
-uniform float shininess = 128, highHeight, lowHeight, gamma, nTextures, highNormalMult, lowNormalMult, baseNormalMult, waterHeight;
+uniform sampler2D noise, baseTex, baseNorm, highTex, highNorm, lowTex, lowNorm, waterTex, waterNorm;
+uniform float shininess = 128, highHeight, lowHeight, waterHeight, gamma, nTextures, highNormalMult, lowNormalMult, baseNormalMult, waterNormalMult;
 uniform int terrainNorm; 
 uniform	vec4 ambient;
 in vec3 n, lDir, eye;
@@ -28,20 +28,37 @@ void main() {
 	
 	vec4 texColor;
 	
-	if(pos.y<=waterHeight+0.01){
-		texColor= texture(waterTex,texc);
+	if(pos.y<=waterHeight+0.1){
+
+		vec4 cLow = texture(lowTex,texc);
+
+		float f = smoothstep(0.0, 0.1, waterHeight+0.1 - pos.y);
+
+		texColor= mix(cLow,texture(waterTex,texc),f);
+
+		// get texture normals
+		if(terrainNorm==1){
+
+			vec3 lowNorm = lowNormalMult* normalize(m_normal* vec3(texture(lowNorm,texc)));
+			vec3 waterNorm = waterNormalMult* normalize(m_normal* vec3(texture(waterNorm,texc)));
+
+			normal = normalize(normal + mix(lowNorm,waterNorm,f));
+
+		}
+
 	}else{
 
 		vec4 cBase = texture(baseTex,texc);
 		vec4 cHigh = texture(highTex,texc);
 		float f = smoothstep(-1.0, 1.0, highHeight + rand(texc) - pos.y);
 		texColor = mix(cHigh,cBase,f);
-		float f2;
+		float f2 = 0;
 		if(f == 1){	
 			vec4 cLow = texture(lowTex,texc);
 			f2= smoothstep(-2.0, 2.0, lowHeight + rand(texc) -  pos.y);
 			texColor = mix(cBase, cLow, f2);
 		}
+		
 		if(terrainNorm==1){
 		
 			vec3 lowNorm = lowNormalMult* normalize(m_normal* vec3(texture(lowNorm,texc)));
@@ -55,13 +72,8 @@ void main() {
 
     	}
 
-
 		
 	}
-
-
-
-	// get texture normals
 	
 		
 	float intensity = ambient.x+ max(dot(normal,l_dir), 0.0) * gamma;

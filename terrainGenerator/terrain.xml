@@ -11,11 +11,11 @@
 			<attribute type="RENDERER" name="lowNormalMult" data="FLOAT" value=0.8/>
 			<attribute type="RENDERER" name="baseNormalMult" data="FLOAT" value=0.2/>
 			<attribute type="RENDERER" name="highNormalMult" data="FLOAT" value=0.3/>
+			<attribute type="RENDERER" name="waterNormalMult" data="FLOAT" value=0/>
 			<attribute type="RENDERER" name="noiseVersion" data="INT" value=1/>
 			<attribute type="RENDERER" name="noiseVariance" data="FLOAT" value=10/>
 			<attribute type="RENDERER" name="noiseScale" data="FLOAT" value=70/>	
 			<attribute type="RENDERER" name="waterHeight" data="FLOAT" value=0/>
-
 		</attributes>
 		<scenes>
 			<scene name="Plane" >
@@ -110,6 +110,9 @@
 
 			<var label="highNormalMult" type="RENDERER" context="CURRENT" 
 					component="highNormalMult" def="min=0 max=2 step=0.05" />
+
+			<var label="waterNormalMult" type="RENDERER" context="CURRENT" 
+					component="waterNormalMult" def="min=0.0 max=2 step=0.5" />
 
 		</window>
 

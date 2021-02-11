@@ -9,7 +9,8 @@
 		<texture name="highNorm" filename="textures/high/highNorm.jpg" />
 		<texture name="lowTex" filename="textures/low/snow.tif" mipmap=true />
 		<texture name="lowNorm" filename="textures/low/snowNorm.jpg" />
-		<texture name="waterTex" filename="textures/water/water.jpg" mipmap=true />
+		<texture name="waterTex" filename="textures/water/water2.jpg" mipmap=true />
+		<texture name="waterNorm" filename="textures/water/waterNorm2.jpg" />
 	</textures>
 	<shaders>
 		<shader name="terrainShaders"	ps="shaders/terrain.frag" 
@@ -70,6 +71,9 @@
 					<valueof uniform="highNormalMult"	type="RENDERER" context="CURRENT" 
 							 					component="highNormalMult" />
 
+					<valueof uniform="waterNormalMult"	type="RENDERER" context="CURRENT" 
+							 					component="waterNormalMult" />
+
 					<valueof uniform="nTextures"	type="RENDERER" context="CURRENT" 
 							 					component="nTextures" />
 
@@ -109,7 +113,10 @@
 												component="UNIT" id=6 />
 
 					<valueof uniform="waterTex" 	type="TEXTURE_BINDING" context="CURRENT"
-												component="UNIT" id=7 />							
+												component="UNIT" id=7 />		
+
+					<valueof uniform="waterNorm" 	type="TEXTURE_BINDING" context="CURRENT"
+												component="UNIT" id=8 />						
 							
 				</values>
 			</shader>
@@ -122,6 +129,7 @@
 				<texture name="lowTex" UNIT="5" />
 				<texture name="lowNorm" UNIT="6" />
 				<texture name="waterTex" UNIT="7" />
+				<texture name="waterNorm" UNIT="8" />
 			</textures>
 		</material>
 	
