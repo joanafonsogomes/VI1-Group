@@ -58,7 +58,8 @@ void main() {
 			f2= smoothstep(-2.0, 2.0, lowHeight + rand(texc) -  pos.y);
 			texColor = mix(cBase, cLow, f2);
 		}
-		
+
+		// get texture normals
 		if(terrainNorm==1){
 		
 			vec3 lowNorm = lowNormalMult* normalize(m_normal* vec3(texture(lowNorm,texc)));
