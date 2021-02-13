@@ -4,8 +4,8 @@ uniform mat4 m_pvm, m_view;
 uniform mat3 m_normal;
 uniform vec4 l_dir;    //world 
 uniform sampler2D noise;
-uniform float maxHeight, noiseVariance, noiseScale, waterHeight, octaves, H, lacunarity, time, month;
-uniform int noiseVersion;
+uniform float maxHeight, noiseVariance, noiseScale, waterHeight, octaves, H, lacunarity, time;
+uniform int noiseVersion, month;
 
 float pi = 3.1415926;
 
@@ -94,7 +94,6 @@ float snoise(vec3 v) {
 
 
 
-
 /*
 * Procedural fBm evaluated at "point"; returns value stored in "value".
 *
@@ -131,7 +130,7 @@ float fbm(vec3 point, float H, float lacunarity, float octaves){
         value += snoise(point) * exponent_array[i];
         point.x *= lacunarity;
         point.z *= lacunarity;
-    } /* for */
+    }
 
 	rem = octaves - floor(octaves);
     if (rem > 0)
@@ -140,24 +139,18 @@ float fbm(vec3 point, float H, float lacunarity, float octaves){
     return (value);
 }
 
-float fbmSmoother( vec3 p, float H, float lacunarity, float octaves){
-    float avg=0;
-    float h0= fbm(vec3((p.x)/noiseScale,0.0,(p.z)/noiseScale),H,lacunarity,octaves) * maxHeight;
+float fbmSmoother( vec2 p, float H, float lacunarity, float octaves){
+
+    float h0= fbm(vec3((p.x)/noiseScale,0.0,p.y/noiseScale),H,lacunarity,octaves) * maxHeight;
     
-    float h1= fbm(vec3((p.x+1)/noiseScale,0.0,(p.z)/noiseScale),H,lacunarity,octaves) * maxHeight;
-    float h2= fbm(vec3((p.x+1)/noiseScale,0.0,(p.z)/noiseScale),H,lacunarity,octaves) * maxHeight;
-    float h3= fbm(vec3((p.x)/noiseScale,0.0,(p.z+1)/noiseScale),H,lacunarity,octaves) * maxHeight;
-    float h4= fbm(vec3((p.x)/noiseScale,0.0,(p.z-1)/noiseScale),H,lacunarity,octaves) * maxHeight;
-    /**
-    for(int i=0; i<3;i++){
-        for(int j=0; j<3;j++){
-            avg+= fbm(vec3((p.x-1+i)/noiseScale,0.0,(p.z-1+i)/noiseScale),H,lacunarity,octaves) * maxHeight;
-        }
-    }
-    avg /=9;
-    */
-    avg=(h1+h2+h3+h4)/4;
-    if(abs(h0-avg)> noiseVariance){
+    float h1= fbm(vec3((p.x+1)/noiseScale,0.0,p.y/noiseScale),H,lacunarity,octaves) * maxHeight;
+    float h2= fbm(vec3((p.x+1)/noiseScale,0.0,p.y/noiseScale),H,lacunarity,octaves) * maxHeight;
+    float h3= fbm(vec3((p.x)/noiseScale,0.0,(p.y+1)/noiseScale),H,lacunarity,octaves) * maxHeight;
+    float h4= fbm(vec3((p.x)/noiseScale,0.0,(p.y-1)/noiseScale),H,lacunarity,octaves) * maxHeight;
+
+    float avg=(h1+h2+h3+h4)/4;
+
+    if(abs(h0-avg) > noiseVariance){
         return avg;
     }else return h0;
 }
@@ -168,10 +161,8 @@ float h(float x, float y){
         return max(waterHeight,texture(noise,vec2(x/200,y/200)).x * maxHeight);
     }
     else if(noiseVersion==1){
-        return max(waterHeight,fbmSmoother(vec3(x,0.0,y),H,lacunarity,octaves));
+        return max(waterHeight,fbmSmoother(vec2(x,y),H,lacunarity,octaves));
     }
-    
-    
 }
 
 void main () {
@@ -181,16 +172,16 @@ void main () {
 
     vec3 derX = vec3(p.x+1,h(p.x+1,p.z),p.z) - vec3(p.x-1,h(p.x-1,p.z), p.z);
     vec3 derY = vec3(p.x,h(p.x,p.z+1), p.z+1) - vec3(p.x,h(p.x,p.z-1), p.z-1);
-    n= normalize(m_normal*normalize(cross(normalize(derY),normalize(derX))));
+    n= normalize(m_normal * normalize(cross(normalize(derY),normalize(derX))));
    
 	tc = texCoord0;
     pos = p;
     
-    float  r = sqrt(pow(l_dir.x,2)+pow(l_dir.y,2)+pow(l_dir.z,2));
-    float theta = atan(l_dir.y/l_dir.x)+ ((month-1) *(pi/2)/12) -(pi/2) ;
-    float phi = atan((sqrt(pow(l_dir.x,2)+pow(l_dir.y,2)))/l_dir.z)+ time*2*pi/24 ;
+    float r = sqrt(pow(l_dir.x,2) + pow(l_dir.y,2) + pow(l_dir.z,2));
+    float theta = atan(l_dir.y/l_dir.x) + ((month-1) * (pi/2)/12) - (pi/2);
+    float phi = atan((sqrt(pow(l_dir.x,2)+pow(l_dir.y,2)))/l_dir.z) + time*2*pi/24;
 
-    vec4 sunDir = vec4(r*sin(phi)*cos(theta),r*sin(phi)*sin(theta),r*cos(phi),0);
+    vec4 sunDir = vec4(r*sin(phi)*cos(theta), r*sin(phi)*sin(theta), r*cos(phi), 0);
 
     lDir = normalize(vec3(m_view * -normalize(sunDir)));
 

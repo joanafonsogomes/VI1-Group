@@ -1,9 +1,9 @@
 #version 330
 
 uniform mat3 m_normal;
-uniform mat4 m_pvm,  m_view;
+uniform mat4 m_pvm, m_view;
 uniform sampler2D noise, baseTex, baseNorm, highTex, highNorm, lowTex, lowNorm, waterTex, waterNorm;
-uniform sampler2D  baseTex2, baseNorm2, highTex2, highNorm2, lowTex2, lowNorm2, waterTex2, waterNorm2;
+uniform sampler2D baseTex2, baseNorm2, highTex2, highNorm2, lowTex2, lowNorm2, waterTex2, waterNorm2;
 uniform float gamma, nTextures, highHeight, lowHeight, waterHeight, highNormalMult, lowNormalMult, baseNormalMult, waterNormalMult;
 uniform int terrainNorm, scene; 
 uniform	vec4 ambient;
@@ -26,9 +26,8 @@ void main() {
 	vec3 l_dir = normalize(lDir);
 	vec2 texc= tc * nTextures;
 
-
-	vec4 thisBaseTex, thisBaseNorm, thisHighTex, thisHighNorm, thisLowTex, thisLowNorm,thisWaterTex, thisWaterNorm ;
-	if(scene ==0){
+	vec4 thisBaseTex, thisBaseNorm, thisHighTex, thisHighNorm, thisLowTex, thisLowNorm,thisWaterTex, thisWaterNorm;
+	if(scene == 0){
 		thisWaterTex = texture(waterTex,texc);
 		thisWaterNorm = texture(waterNorm,texc);
 		thisBaseTex = texture(baseTex,texc);
@@ -37,7 +36,6 @@ void main() {
 		thisHighNorm = texture(highNorm,texc);
 		thisLowTex = texture(lowTex,texc);
 		thisLowNorm = texture(lowNorm,texc);
-		
 
 	}else{
 		thisWaterTex = texture(waterTex2,texc);
@@ -67,7 +65,7 @@ void main() {
 			vec3 lowNorm = lowNormalMult * normalize(m_normal * vec3(thisLowNorm));
 			vec3 waterNorm = waterNormalMult * normalize(m_normal * vec3(thisWaterNorm));
 
-			normal = normalize(normal + mix(lowNorm,waterNorm,f));
+			normal = normalize(normal + mix(lowNorm, waterNorm, f));
 		}
 
 	}else{
@@ -83,12 +81,12 @@ void main() {
 		// get texture normals
 		if(terrainNorm==1){
 		
-			vec3 lowNorm = lowNormalMult* normalize(m_normal* vec3(thisLowNorm));
-			vec3 baseNorm = baseNormalMult* normalize(m_normal* vec3(thisBaseNorm));
-			vec3 highNorm =	highNormalMult* normalize(m_normal* vec3(thisHighNorm));
+			vec3 lowNorm = lowNormalMult * normalize(m_normal * vec3(thisLowNorm));
+			vec3 baseNorm = baseNormalMult * normalize(m_normal * vec3(thisBaseNorm));
+			vec3 highNorm =	highNormalMult * normalize(m_normal * vec3(thisHighNorm));
 
-			vec3 normalMix =mix(highNorm,baseNorm,f);
-			normalMix = mix(normalMix, lowNorm,f2);
+			vec3 normalMix =mix(highNorm, baseNorm, f);
+			normalMix = mix(normalMix, lowNorm, f2);
 			
 			normal =normalize(normal + normalMix);
 

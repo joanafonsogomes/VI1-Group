@@ -20,7 +20,7 @@
 			<attribute type="RENDERER" name="H" data="FLOAT" value=1.25/>	
 			<attribute type="RENDERER" name="octaves" data="FLOAT" value=5/>
 			<attribute type="RENDERER" name="time" data="FLOAT" value=8/>
-			<attribute type="RENDERER" name="month" data="FLOAT" value=1/>
+			<attribute type="RENDERER" name="month" data="INT" value=1/>
 			<attribute type="RENDERER" name="scene" data="INT" value=1/>
 		</attributes>
 		<scenes>
@@ -151,10 +151,10 @@
 					component="H" def="min=1.0 max=6 step=0.1" />
 
 			<var label="octaves" type="RENDERER" context="CURRENT" 
-					component="octaves" def="min=0.0 max=5 step=0.1" />
+					component="octaves" def="min=0.001 max=5 step=0.1" />
 
 			<var label="noiseScale" type="RENDERER" context="CURRENT" 
-					component="noiseScale" def="min=1 max=100 step=0.1" />
+					component="noiseScale" def="min=1.01 max=100.01 step=0.1" />
 		</window>
 	</interface>
 </project>
