@@ -3,14 +3,25 @@
 
 	<textures>
 		<texture name="noise" filename="textures/noise.jpg" />
-		<texture name="baseTex" filename="textures/base/base.tif" mipmap=true />
-		<texture name="baseNorm" filename="textures/base/baseNorm.jpg"  />
-		<texture name="highTex" filename="textures/high/high.tif" mipmap=true />
-		<texture name="highNorm" filename="textures/high/highNorm.jpg" />
+
+		<texture name="highTex" filename="textures/high/snowStone.tif" mipmap=true />
+		<texture name="highNorm" filename="textures/high/snowStoneNorm.jpg" />
+		<texture name="baseTex" filename="textures/base/stone.tif" mipmap=true />
+		<texture name="baseNorm" filename="textures/base/stoneNorm.jpg"  />
 		<texture name="lowTex" filename="textures/low/snow.tif" mipmap=true />
 		<texture name="lowNorm" filename="textures/low/snowNorm.jpg" />
-		<texture name="waterTex" filename="textures/water/water2.jpg" mipmap=true />
-		<texture name="waterNorm" filename="textures/water/waterNorm2.jpg" />
+		<texture name="waterTex" filename="textures/water/water.jpg" mipmap=true />
+		<texture name="waterNorm" filename="textures/water/waterNorm.jpg" />
+
+		<texture name="highTex2" filename="textures/low/grass.jpg" mipmap=true />
+		<texture name="highNorm2" filename="textures/low/grassNorm.jpg" />
+		<texture name="baseTex2" filename="textures/base/canny.jpg" mipmap=true />
+		<texture name="baseNorm2" filename="textures/base/cannyNorm.jpg"  />
+		<texture name="lowTex2" filename="textures/low/grass.jpg" mipmap=true />
+		<texture name="lowNorm2" filename="textures/low/grassNorm.jpg" />
+		<texture name="waterTex2" filename="textures/water/sea.jpg" mipmap=true />
+		<texture name="waterNorm2" filename="textures/water/seaNorm.jpg" />
+
 	</textures>
 	<shaders>
 		<shader name="terrainShaders"	ps="shaders/terrain.frag" 
@@ -40,15 +51,9 @@
 												
 					<valueof uniform="m_view" 	type="RENDERER" context="CURRENT" 
 												component="VIEW"  />	
-
-					<valueof uniform="m_viewModel"  type="RENDERER" context="CURRENT" 
-							 					component="VIEW_MODEL" />
 												
 					<valueof uniform="l_dir"	type="LIGHT" context="CURRENT"
 												component="DIRECTION" id=0/>
-
-					<valueof uniform="cam"		type="CAMERA" context="CURRENT"
-												component="POSITION" />
 
 					<valueof uniform="maxHeight"	type="RENDERER" context="CURRENT" 
 							 					component="maxHeight" />
@@ -101,6 +106,15 @@
 					<valueof uniform="H"	type="RENDERER" context="CURRENT" 
 							 					component="H" />
 
+					<valueof uniform="time"	type="RENDERER" context="CURRENT" 
+							 					component="time" />
+
+					<valueof uniform="month"	type="RENDERER" context="CURRENT" 
+							 					component="month" />
+
+					<valueof uniform="scene"	type="RENDERER" context="CURRENT" 
+							 					component="scene" />
+
 					<valueof uniform="noise" 	type="TEXTURE_BINDING" context="CURRENT"
 												component="UNIT" id=0 />
 
@@ -126,7 +140,33 @@
 												component="UNIT" id=7 />		
 
 					<valueof uniform="waterNorm" 	type="TEXTURE_BINDING" context="CURRENT"
-												component="UNIT" id=8 />						
+												component="UNIT" id=8 />
+
+
+
+					<valueof uniform="baseTex2" 	type="TEXTURE_BINDING" context="CURRENT"
+												component="UNIT" id=9 />
+
+					<valueof uniform="baseNorm2" 	type="TEXTURE_BINDING" context="CURRENT"
+												component="UNIT" id=10 />
+
+					<valueof uniform="highTex2" 	type="TEXTURE_BINDING" context="CURRENT"
+												component="UNIT" id=11 />
+
+					<valueof uniform="highNorm2" 	type="TEXTURE_BINDING" context="CURRENT"
+												component="UNIT" id=12 />
+					
+					<valueof uniform="lowTex2" 	type="TEXTURE_BINDING" context="CURRENT"
+												component="UNIT" id=13 />
+
+					<valueof uniform="lowNorm2" 	type="TEXTURE_BINDING" context="CURRENT"
+												component="UNIT" id=14 />
+
+					<valueof uniform="waterTex2" 	type="TEXTURE_BINDING" context="CURRENT"
+												component="UNIT" id=15 />		
+
+					<valueof uniform="waterNorm2" 	type="TEXTURE_BINDING" context="CURRENT"
+												component="UNIT" id=16 />														
 							
 				</values>
 			</shader>
@@ -140,6 +180,15 @@
 				<texture name="lowNorm" UNIT="6" />
 				<texture name="waterTex" UNIT="7" />
 				<texture name="waterNorm" UNIT="8" />
+
+				<texture name="baseTex2"  UNIT="9" />
+				<texture name="baseNorm2"  UNIT="10" />
+				<texture name="highTex2"  UNIT="11" />
+				<texture name="highNorm2"  UNIT="12" />
+				<texture name="lowTex2" UNIT="13" />
+				<texture name="lowNorm2" UNIT="14" />
+				<texture name="waterTex2" UNIT="15" />
+				<texture name="waterNorm2" UNIT="16" />
 			</textures>
 		</material>
 	

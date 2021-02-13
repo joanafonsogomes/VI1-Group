@@ -1,19 +1,20 @@
 #version 330
 
-uniform mat4 m_pvm, m_viewModel, m_view;
+uniform mat4 m_pvm, m_view;
 uniform mat3 m_normal;
-uniform vec4 l_dir;    //world
-uniform vec4 cam;    
+uniform vec4 l_dir;    //world 
 uniform sampler2D noise;
-uniform float maxHeight, noiseVariance, noiseScale, waterHeight, octaves, H, lacunarity;
+uniform float maxHeight, noiseVariance, noiseScale, waterHeight, octaves, H, lacunarity, time, month;
 uniform int noiseVersion;
+
+float pi = 3.1415926;
 
 in vec4 position;    //local
 in vec3 normal;        //local
 in vec2 texCoord0;    //local
 
 out vec4 pos;
-out vec3 n, eye, lDir; //camera
+out vec3 n,  lDir; //camera
 out vec2 tc;
 
 
@@ -247,10 +248,16 @@ void main () {
     vec3 derY = vec3(p.x,h(p.x,p.z+1), p.z+1) - vec3(p.x,h(p.x,p.z-1), p.z-1);
     n= normalize(m_normal*normalize(cross(normalize(derY),normalize(derX))));
    
-    eye = vec3(-(m_viewModel * position)); 
 	tc = texCoord0;
     pos = p;
-    lDir = normalize(vec3(m_view * -normalize(l_dir)));
+    
+    float  r = sqrt(pow(l_dir.x,2)+pow(l_dir.y,2)+pow(l_dir.z,2));
+    float theta = atan(l_dir.y/l_dir.x)+ ((month-1) *(pi/2)/12) -(pi/2) ;
+    float phi = atan((sqrt(pow(l_dir.x,2)+pow(l_dir.y,2)))/l_dir.z)+ time*2*pi/24 ;
+
+    vec4 sunDir = vec4(r*sin(phi)*cos(theta),r*sin(phi)*sin(theta),r*cos(phi),0);
+
+    lDir = normalize(vec3(m_view * -normalize(sunDir)));
 
     gl_Position = m_pvm * p;
 
