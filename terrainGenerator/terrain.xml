@@ -94,9 +94,6 @@
 
 			<var label="noiseVersion" type="RENDERER" context="CURRENT" 
 					component="noiseVersion" def="min=0 max=1 step=1" />
-
-			<var label="noiseVariance" type="RENDERER" context="CURRENT" 
-					component="noiseVariance" def="min=0 max=100 step=1" />
 					
 			<var label="time" type="RENDERER" context="CURRENT" 
 					component="time" def="min=0 max=24 step=1" />
@@ -146,6 +143,9 @@
 
 			<var label="noiseScale" type="RENDERER" context="CURRENT" 
 					component="noiseScale" def="min=1.01 max=100.01 step=0.1" />
+			
+			<var label="noiseVariance" type="RENDERER" context="CURRENT" 
+					component="noiseVariance" def="min=0 max=100 step=1" />
 		</window>
 	</interface>
 </project>

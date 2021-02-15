@@ -139,7 +139,7 @@ float fbm(vec3 point, float H, float lacunarity, float octaves){
     return (value);
 }
 
-float fbmSmoother( vec2 p, float H, float lacunarity, float octaves){
+float noiseSmoother( vec2 p, float H, float lacunarity, float octaves){
 
     float h0= fbm(vec3((p.x)/noiseScale,0.0,p.y/noiseScale),H,lacunarity,octaves) * maxHeight;
     
@@ -161,7 +161,7 @@ float h(float x, float y){
         return max(waterHeight,texture(noise,vec2(x/200,y/200)).x * maxHeight);
     }
     else if(noiseVersion==1){
-        return max(waterHeight,fbmSmoother(vec2(x,y),H,lacunarity,octaves));
+        return max(waterHeight,noiseSmoother(vec2(x,y),H,lacunarity,octaves));
     }
 }
 

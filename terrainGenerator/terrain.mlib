@@ -29,11 +29,7 @@
 										/>
 	</shaders>
 
-	<buffers>
-		<buffer name="point">
-			<SIZE value=16  />
-		</buffer>	
-	</buffers>
+
 	
 	<materials>
 	
