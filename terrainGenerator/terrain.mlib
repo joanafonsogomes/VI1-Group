@@ -109,9 +109,6 @@
 					<valueof uniform="time"	type="RENDERER" context="CURRENT" 
 							 					component="time" />
 
-					<valueof uniform="month"	type="RENDERER" context="CURRENT" 
-							 					component="month" />
-
 					<valueof uniform="scene"	type="RENDERER" context="CURRENT" 
 							 					component="scene" />
 

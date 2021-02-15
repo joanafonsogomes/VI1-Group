@@ -5,7 +5,7 @@ uniform mat3 m_normal;
 uniform vec4 l_dir;    //world 
 uniform sampler2D noise;
 uniform float maxHeight, noiseVariance, noiseScale, waterHeight, octaves, H, lacunarity, time;
-uniform int noiseVersion, month;
+uniform int noiseVersion;
 
 float pi = 3.1415926;
 
@@ -177,10 +177,12 @@ void main () {
 	tc = texCoord0;
     pos = p;
     
-    float r = sqrt(pow(l_dir.x,2) + pow(l_dir.y,2) + pow(l_dir.z,2));
-    float theta = atan(l_dir.y/l_dir.x) + ((month-1) * (pi/2)/12) - (pi/2);
-    float phi = atan((sqrt(pow(l_dir.x,2)+pow(l_dir.y,2)))/l_dir.z) + time*2*pi/24;
 
+    float r = sqrt(pow(l_dir.x,2) + pow(l_dir.y,2) + pow(l_dir.z,2));
+	float phi = atan((sqrt(pow(l_dir.x,2)+pow(l_dir.y,2)))/l_dir.z) + (time-12)/12*pi;
+	float theta = atan(l_dir.y/l_dir.x);
+
+    
     vec4 sunDir = vec4(r*sin(phi)*cos(theta), r*sin(phi)*sin(theta), r*cos(phi), 0);
 
     lDir = normalize(vec3(m_view * -normalize(sunDir)));
