@@ -19,7 +19,7 @@
 			<attribute type="RENDERER" name="lacunarity" data="FLOAT" value=3/>
 			<attribute type="RENDERER" name="H" data="FLOAT" value=1.25/>	
 			<attribute type="RENDERER" name="octaves" data="FLOAT" value=5/>
-			<attribute type="RENDERER" name="time" data="FLOAT" value=12/>
+			<attribute type="RENDERER" name="time" data="FLOAT" value=10/>
 			<attribute type="RENDERER" name="scene" data="INT" value=1/>
 		</attributes>
 		<scenes>
@@ -99,7 +99,7 @@
 					component="time" def="min=0 max=24 step=1" />
 
 		</window>
-		
+
 		<window label="Normals" >
 			<var label="terrainNorm" type="RENDERER" context="CURRENT" 
 					component="terrainNorm" def="min=0 max=1 step=1" />
