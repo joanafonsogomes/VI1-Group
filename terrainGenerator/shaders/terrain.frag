@@ -57,7 +57,7 @@ void main() {
 
 		float f = smoothstep(0.0, deviation, waterHeight + deviation - pos.y);
 
-		texColor= mix(thisLowTex,thisWaterTex,f);
+		texColor = mix(thisLowTex,thisWaterTex,f);
 
 		// get texture normals
 		if(terrainNorm==1){
@@ -74,7 +74,7 @@ void main() {
 		texColor = mix(thisHighTex,thisBaseTex,f);
 		float f2 = 0;
 		if(f == 1){	
-			f2= smoothstep(-2.0, 2.0, lowHeight + rand(texc) - pos.y);
+			f2 = smoothstep(-2.0, 2.0, lowHeight + rand(texc) - pos.y);
 			texColor = mix(thisBaseTex, thisLowTex, f2);
 		}
 
@@ -85,10 +85,10 @@ void main() {
 			vec3 baseNorm = baseNormalMult * normalize(m_normal * vec3(thisBaseNorm));
 			vec3 highNorm =	highNormalMult * normalize(m_normal * vec3(thisHighNorm));
 
-			vec3 normalMix =mix(highNorm, baseNorm, f);
+			vec3 normalMix = mix(highNorm, baseNorm, f);
 			normalMix = mix(normalMix, lowNorm, f2);
 			
-			normal =normalize(normal + normalMix);
+			normal = normalize(normal + normalMix);
 
     	}
 

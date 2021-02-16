@@ -172,7 +172,7 @@ void main () {
 
     vec3 derX = vec3(p.x+1,h(p.x+1,p.z),p.z) - vec3(p.x-1,h(p.x-1,p.z), p.z);
     vec3 derY = vec3(p.x,h(p.x,p.z+1), p.z+1) - vec3(p.x,h(p.x,p.z-1), p.z-1);
-    n= normalize(m_normal * normalize(cross(normalize(derY),normalize(derX))));
+    n = normalize(m_normal * normalize(cross(normalize(derY),normalize(derX))));
    
 	tc = texCoord0;
     pos = p;
