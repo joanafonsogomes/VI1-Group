@@ -9,7 +9,7 @@ Group assignment of **Visualization & Illumination I** (Visualização & Ilumina
 <img src="https://github.com/joanafonsogomes/VI1-Group/blob/main/scene1.PNG" width="700">
 </p>
 <p align="center">
-<sub>visualization of the different textures of the project scenes</sub>
+<sub>(Visualization of the different textures of the project scenes)</sub>
 </p>
 
 ###### By [@HCHexY](https://github.com/HCHexY) [@joanafonsogomes]( https://github.com/joanafonsogomes) [@LPFerreira33](https://github.com/LPFerreira33)
